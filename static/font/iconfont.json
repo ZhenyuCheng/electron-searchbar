@@ -1,0 +1,37 @@
+{
+  "id": "1268100",
+  "name": "electron-search",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1704628",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e6f3",
+      "unicode_decimal": 59123
+    },
+    {
+      "icon_id": "8007396",
+      "name": "展开",
+      "font_class": "zhankai",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "8778309",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "11370934",
+      "name": "Enter3",
+      "font_class": "Enter",
+      "unicode": "e6c0",
+      "unicode_decimal": 59072
+    }
+  ]
+}
