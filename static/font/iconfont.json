@@ -6,11 +6,32 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "435890",
+      "name": "版本切换",
+      "font_class": "banbenqiehuan",
+      "unicode": "e792",
+      "unicode_decimal": 59282
+    },
+    {
+      "icon_id": "493424",
+      "name": "导航",
+      "font_class": "daohang",
+      "unicode": "e797",
+      "unicode_decimal": 59287
+    },
+    {
       "icon_id": "1704628",
       "name": "search",
       "font_class": "search",
       "unicode": "e6f3",
       "unicode_decimal": 59123
+    },
+    {
+      "icon_id": "4333444",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
     },
     {
       "icon_id": "8007396",

@@ -3,6 +3,7 @@
     <!-- <landing-page></landing-page> -->
     <inputArea
       :search-first-result="list[0] && list[0].name"
+      :iframe-url="iframeUrl"
       @search="handleSearch"
       @enter="handleEnter"
       @up="handleUp"
@@ -28,7 +29,7 @@
  * @author chengzhenyu@corp.netease.com
  * @date 2019-10-17 23:10:54
  * @Last Modified by: chengzhenyu@corp.netease.com
- * @Last Modified time: 2019-10-29 15:20:59
+ * @Last Modified time: 2019-11-08 00:13:46
  */
 import { ipcRenderer } from 'electron';
 import inputArea from '@/components/inputArea';
@@ -51,6 +52,7 @@ export default {
     // 监听搜索结果
     ipcRenderer.on('search-result', (event, arg) => {
       this.list = arg;
+      this.$forceUpdate();
       // this.handleReset(['iframeUrl'])
       // console.log(arg) // prints "pong"
     })
@@ -78,7 +80,7 @@ export default {
         this.activeIndex++;
       }
     },
-    handleReset(fields) {
+    handleReset(fields) {  
       if (Array.isArray(fields) && fields.length > 0) {
         fields.forEach(element => {
           if (typeof this[element] == 'number') {
@@ -93,6 +95,7 @@ export default {
         this.iframeUrl = ''
         this.activeIndex = 0;
       }
+      ipcRenderer.send('reset-currentIframe');
     },
     handleEnter(arg, index) {
       if(index || index === 0) {

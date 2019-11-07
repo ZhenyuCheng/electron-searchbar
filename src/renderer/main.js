@@ -1,10 +1,11 @@
-import Vue from 'vue'
 
-import App from './App'
 // import materialize from 'materialize';
 import 'materialize-css/dist/css/materialize.css';
 import '../../static/assets/loading.css';
 import '../../static/font/iconfont.css';
+
+import Vue from 'vue'
+import App from './App'
 
 
 

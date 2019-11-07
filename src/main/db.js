@@ -25,29 +25,29 @@ let mockData = [
     },
     {
         // _id: 'http://www.google.com',
-        url: 'http://www.44.com',
-        name: '谷歌',
-        keyWords: '搜索',
-        type: 'blank', // 跳转默认浏览器打开
-        desc: 'Google旗下的搜索产品，百度的对手',
+        url: 'https://www.yuque.com/dashboard',
+        name: '语雀-外网-工作台',
+        keyWords: '笔记,语雀',
+        type: 'insert', // 跳转默认浏览器打开
+        desc: '阿里语雀知识库-外网',
         // icon: 'http://www.google.com/s2/favicons?domain=www.google.com'
     },
     {
         // _id: 'http://www.google.com',
-        url: 'http://www.1.com',
-        name: '谷歌',
-        keyWords: '搜索',
-        type: 'blank', // 跳转默认浏览器打开
-        desc: 'Google旗下的搜索产品，百度的对手',
+        url: 'http://www.materializecss.cn/forms.html',
+        name: 'materializecss',
+        keyWords: 'css',
+        type: 'insert', // 跳转默认浏览器打开
+        desc: 'materializecss样式库',
         // icon: 'http://www.google.com/s2/favicons?domain=www.google.com'
     },
     {
         // _id: 'http://www.google.com',
-        url: 'http://www.3.com',
-        name: '谷歌',
-        keyWords: '搜索',
-        type: 'blank', // 跳转默认浏览器打开
-        desc: 'Google旗下的搜索产品，百度的对手',
+        url: 'https://segmentfault.com',
+        name: 'segmentfault',
+        keyWords: '问答',
+        type: 'insert', // 跳转默认浏览器打开
+        desc: '问答社区',
         // icon: 'http://www.google.com/s2/favicons?domain=www.google.com'
     },
     {
@@ -58,7 +58,9 @@ let mockData = [
         type: 'blank', // 跳转默认浏览器打开
         desc: '360搜索产品百',
         // icon: 'http://www.google.com/s2/favicons?domain=www.google.com'
-    }, {
+    },
+
+    {
         url: 'https://nos.kaolafed.com',
         name: 'nos上传',
         keyWords: '上传,网易',
@@ -129,11 +131,22 @@ let update = function (ele) {
         }
     });
 }
-
+let find = function (options) {
+    return new Promise((reslove, reject) => {
+        db.find(options, function (err, docs) {
+            if (err) {
+                reject(err)
+            } else {
+                reslove(docs)
+            }
+        });
+    })
+}
 
 export default {
     search,
-    update
+    update,
+    find,
 }
 
 /**
