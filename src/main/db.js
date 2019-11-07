@@ -2,6 +2,10 @@ import Datastore from 'nedb'
 import { app } from 'electron'
 import nodejieba from 'nodejieba';
 const db = new Datastore({ filename: `${app.getPath('appData')}/electron-search.db`, autoload: true });
+if(process.env.NODE_ENV === 'development') {
+    db.remove({}, { multi: true }, function (err, numRemoved) {});
+
+}
 // URL作为主键
 // [{ name: '2222', keyWords: ['test', '2222'], desc: '2222', url: '22222222', icon: '2222' }]
 let mockData = [
@@ -123,7 +127,10 @@ let search = function ({ searchKey }) {
 }
 
 let update = function (ele) {
-    db.update({ url: ele.url }, ele, { upsert: true }, function (err, numReplaced, upsert) {
+    if (ele.url[ele.url.length - 1] === '/') {
+        ele.url = ele.url.slice(0, ele.url.length - 1);
+    }
+    db.update({ url: { $regex: new RegExp(`${ele.url}\/?`) } }, ele, { upsert: true }, function (err, numReplaced, upsert) {
         if (err) {
             throw (err)
         } else {

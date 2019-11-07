@@ -3,7 +3,7 @@
  * @author chengzhenyu@corp.netease.com
  * @date 2019-10-23 21:16:15
  * @Last Modified by: chengzhenyu@corp.netease.com
- * @Last Modified time: 2019-11-08 00:19:45
+ * @Last Modified time: 2019-11-08 01:12:13
  */
 import { app, BrowserWindow, globalShortcut, ipcMain, shell } from 'electron'
 import db from './db';
@@ -70,11 +70,12 @@ function createWindow() {
     // Event: 'did-start-navigation'
     // Event: 'did-navigate-in-page'
     // Event: 'did-frame-navigate'
+    // Event: 'did-start-navigation'
 
-    webContents.on('did-frame-navigate', (event, navigationUrl, httpResponseCode, httpStatusText, isMainFrame, frameProcessId, frameRoutingId) => {
+    webContents.on('did-start-navigation', (event, navigationUrl, isInPlace, isMainFrame, frameProcessId, frameRoutingId) => {
         const parsedUrl = new URL(navigationUrl)
         //  会检测到子级iframe，所以视图区域设置的时候需要取第一个
-        console.log(new Date().getTime(), navigationUrl, httpResponseCode, httpStatusText, isMainFrame, frameProcessId, frameRoutingId)
+        console.log(new Date().getTime(), navigationUrl, isInPlace, isMainFrame, frameProcessId, frameRoutingId)
         if (!isMainFrame) {
             currentIframe.push(navigationUrl);
         }

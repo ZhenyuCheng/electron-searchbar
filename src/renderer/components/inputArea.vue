@@ -5,6 +5,7 @@
             v-model="searchKey"
             type="text"
             class="main-input"
+            autofocus
             placeholder="快捷搜索"
             @input="handleInput">
         <input v-model="searchCombine"
