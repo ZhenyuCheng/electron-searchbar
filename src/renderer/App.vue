@@ -4,6 +4,8 @@
     <inputArea
       :search-first-result="list[0] && list[0].name"
       :iframe-url="iframeUrl"
+      :showGuide.sync="showGuide"
+      :expand.sync="expand"
       @search="handleSearch"
       @enter="handleEnter"
       @up="handleUp"
@@ -12,7 +14,9 @@
     />
 
     <listArea
+      :showGuide.sync="showGuide"
       :list="list"
+      :expand.sync="expand"
       :active-index="activeIndex"
       :iframe-url="iframeUrl"
       @enter="handleEnter"
@@ -29,7 +33,7 @@
  * @author chengzhenyu@corp.netease.com
  * @date 2019-10-17 23:10:54
  * @Last Modified by: chengzhenyu@corp.netease.com
- * @Last Modified time: 2019-11-08 00:13:46
+ * @Last Modified time: 2019-11-11 18:46:45
  */
 import { ipcRenderer } from 'electron';
 import inputArea from '@/components/inputArea';
@@ -45,7 +49,9 @@ export default {
     return {
       list: [],
       activeIndex: 0,
-      iframeUrl: ''
+      expand: false,
+      iframeUrl: '',
+      showGuide: false 
     }
   },
   created() {
@@ -56,6 +62,8 @@ export default {
       // this.handleReset(['iframeUrl'])
       // console.log(arg) // prints "pong"
     })
+
+    this.showGuide = Boolean(localStorage.getItem('show-guide')) || false; // 默认导航习惯为false
   },
   methods: {
     handleSearch($event) {

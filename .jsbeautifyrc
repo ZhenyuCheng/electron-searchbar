@@ -12,7 +12,7 @@
   "html": {
     "indent_size": 4,
     "indent_scripts": "keep",
-    "wrap-line-length": 120,
+    "wrap-line-length": 200,
     "wrap_attributes": "force"
   }
 }

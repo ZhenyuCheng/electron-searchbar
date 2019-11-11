@@ -7,96 +7,110 @@
             class="main-input"
             autofocus
             placeholder="快捷搜索"
-            @input="handleInput">
+            @input="handleInput" />
         <input v-model="searchCombine"
             type="text"
             class="main-input hiddden-input"
-            disabled>
+            disabled />
         <i class="iconfont iconzhankai"
             title="手动展开后，除非手动收起，否则不会收起内容区"
-            :class="{rotate: expand || searchKey}"
+            :class="{rotate: expand}"
             @click="triggerExpand" />
     </div>
 </template>
 
 <script>
-import {
-    ipcRenderer
-} from 'electron';
-import _ from 'lodash'
+import { ipcRenderer } from "electron";
+import _ from "lodash";
 export default {
     props: {
         searchFirstResult: {
             type: String,
-            default: ''
+            default: ""
         },
         iframeUrl: {
             type: String,
             default: ""
+        },
+        expand: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return {
-            searchKey: '',
-            expand: false
-        }
+            searchKey: ""
+        };
     },
     computed: {
         searchCombine() {
             if (this.searchKey && this.searchFirstResult) {
-                return `${this.searchKey} - ${this.searchFirstResult}`
+                return `${this.searchKey} - ${this.searchFirstResult}`;
             } else {
-                return ''
+                return "";
             }
         }
     },
     mounted() {
         let vm = this;
-        Mousetrap(this.$refs.input).bind('up', () => {
-            vm.$emit('up');
+        Mousetrap(this.$refs.input).bind("up", () => {
+            vm.$emit("up");
             return false;
         });
-        Mousetrap(this.$refs.input).bind('down', () => {
-            vm.$emit('down');
+        Mousetrap(this.$refs.input).bind("down", () => {
+            vm.$emit("down");
             return false;
         });
-        Mousetrap(this.$refs.input).bind('enter', () => {
+        Mousetrap(this.$refs.input).bind("enter", () => {
             if (vm.iframeUrl) {
                 // 如果在iframe中触发搜索
-                vm.$emit('search', vm.searchKey);
+                vm.$emit("search", vm.searchKey);
                 return;
             }
-            vm.$emit('enter');
+            vm.$emit("enter");
         });
     },
     methods: {
         triggerExpand() {
             if (!this.expand) {
-                ipcRenderer.send('change-window', 'large')
-                this.$emit('expand');
-                this.expand = !this.expand;
-
+                // 如果此时没有有搜索词，展示导航
+                ipcRenderer.send("change-window", "large");
+                setTimeout(() => {
+                    this.$emit("update:expand", true);
+                }, 500);
+                if (!this.searchKey) {
+                    setTimeout(() => {
+                        this.$emit("update:showGuide", true);
+                    }, 500);
+                }
             } else {
-                // 如果此时有搜索词，不能收起
-                if (this.searchKey) return;
-                ipcRenderer.send('change-window', 'small')
-                this.$emit('fold');
-                this.expand = !this.expand;
-
+                ipcRenderer.send("change-window", "small");
+                this.$emit("fold");
+                this.$emit("update:expand", false);
+                this.$emit("update:showGuide", false);
             }
         },
         handleInput: _.debounce(function($event) {
             if (this.searchKey) {
-                ipcRenderer.send('change-window', 'large')
-                this.$emit('search', $event.target.value);
+                setTimeout(() => {
+                    this.$emit("update:expand", true);
+                }, 500);
+                ipcRenderer.send("change-window", "large");
+                this.$emit("search", $event.target.value);
+                this.$emit("update:showGuide", false);
             } else {
-                // if (this.expand) return; //如果手动展开，那么不会收起
-                ipcRenderer.send('change-window', 'small')
-                this.$emit('fold', true);
+                //如果有导航习惯，无搜索词时展示导航
+                if (localStorage.getItem("show-guide")) {
+                    this.$emit("update:showGuide", true);
+                } else {
+                    this.$emit("update:expand", false);
+                    ipcRenderer.send("change-window", "small");
+                }
+                this.$emit("fold", true);
             }
         }, 300)
-    },
-}
+    }
+};
 </script>
 
 <style lang="less"
@@ -121,11 +135,11 @@ export default {
         height: auto;
         line-height: 42px;
         transition: all 0.3s;
-        transform: rotate(180deg)
+        transform: rotate(180deg);
     }
 
     .rotate {
-        transform: rotate(0)
+        transform: rotate(0);
     }
 
     .main-input {

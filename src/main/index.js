@@ -3,7 +3,7 @@
  * @author chengzhenyu@corp.netease.com
  * @date 2019-10-23 21:16:15
  * @Last Modified by: chengzhenyu@corp.netease.com
- * @Last Modified time: 2019-11-08 01:12:13
+ * @Last Modified time: 2019-11-09 22:44:04
  */
 import { app, BrowserWindow, globalShortcut, ipcMain, shell } from 'electron'
 import db from './db';
