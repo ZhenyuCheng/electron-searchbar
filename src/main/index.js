@@ -3,7 +3,7 @@
  * @author chengzhenyu@corp.netease.com
  * @date 2019-10-23 21:16:15
  * @Last Modified by: chengzhenyu@corp.netease.com
- * @Last Modified time: 2019-11-09 22:44:04
+ * @Last Modified time: 2019-12-16 16:00:56
  */
 import { app, BrowserWindow, globalShortcut, ipcMain, shell } from 'electron'
 import db from './db';
@@ -28,7 +28,7 @@ const winURL = process.env.NODE_ENV === 'development' ?
 // 暂时弄大一点方便测试
 const windowWidth = 1000 //800
 const minWindowHeight = 43;
-const maxWindowHeight = 700 //500;
+const maxWindowHeight = 600 //500;
 let currentIframe = [];
 function createWindow() {
     /**
@@ -98,18 +98,17 @@ function createWindow() {
     globalShortcut.register('Alt+A', () => {
         if (!mainWindow.isVisible()) {
             app.dock.hide();
-            mainWindow.showInactive();
-            mainWindow.focus();
+            mainWindow.show();
         } else {
             mainWindow.hide();
-            app.dock.show();
+            // app.dock.show();
         }
     })
 
     // 监听应用失焦事件
     app.on('browser-window-blur', () => {
         mainWindow.hide();
-        app.dock.show();
+        // app.dock.show();
     })
     // 处理渲染进程抛出的事件
     ipcMain.on('change-window', (event, arg) => {

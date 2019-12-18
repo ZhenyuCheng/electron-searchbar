@@ -102,7 +102,7 @@
  * @author chengzhenyu@corp.netease.com
  * @date 代码片段生成
  * @Last Modified by: chengzhenyu@corp.netease.com
- * @Last Modified time: 2019-11-11 18:48:28
+ * @Last Modified time: 2019-12-16 11:30:42
  */
 import { ipcRenderer } from "electron";
 import { color } from "../const";
@@ -149,7 +149,7 @@ export default {
       iframe: {
         // iframe的宽高
         width: 1000,
-        height: 650,
+        height: 550,
         minHeight: 43,
         url: "",
         name: "",

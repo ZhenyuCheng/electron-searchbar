@@ -19,6 +19,16 @@ export const mockData = [
         desc: 'Google旗下的搜索产品，百度的对手',
         // icon: 'http://www.google.com/s2/favicons?domain=www.google.com'
     },
+    // 
+    {
+        // _id: 'http://www.google.com',
+        url: 'https://yuque.antfin-inc.com/dashboard',
+        name: '语雀-内网-工作台',
+        keyWords: '笔记,语雀',
+        type: 'insert', // 跳转默认浏览器打开
+        desc: '阿里语雀知识库-内网',
+        // icon: 'http://www.google.com/s2/favicons?domain=www.google.com'
+    },
     {
         // _id: 'http://www.google.com',
         url: 'https://www.yuque.com/dashboard',
